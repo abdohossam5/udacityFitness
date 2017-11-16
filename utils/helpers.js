@@ -1,3 +1,9 @@
+import React from 'react';
+import { View } from 'react-native';
+import { MaterialIcons, MaterialCommunityIcons, FontAwesome } from '@expo/vector-icons';
+import {red, orange, blue,lightPurp, pink, purple, white} from './colors';
+
+
 export function getMetricMetaInfo (metric) {
   const info = {
     run: {
@@ -8,7 +14,7 @@ export function getMetricMetaInfo (metric) {
       type: 'steppers',
       getIcon() {
         return (
-          <View style={[styles.iconContainer, {backgroundColor: red}]}>
+          <View style={[{backgroundColor: 'red'}]}>
             <MaterialIcons
               name='directions-run'
               color={white}
@@ -26,7 +32,7 @@ export function getMetricMetaInfo (metric) {
       type: 'steppers',
       getIcon() {
         return (
-          <View style={[styles.iconContainer, {backgroundColor: orange}]}>
+          <View style={[ {backgroundColor: 'red'}]}>
             <MaterialCommunityIcons
               name='bike'
               color={white}
@@ -44,7 +50,7 @@ export function getMetricMetaInfo (metric) {
       type: 'steppers',
       getIcon() {
         return (
-          <View style={[styles.iconContainer, {backgroundColor: blue}]}>
+          <View style={[{backgroundColor: 'red'}]}>
             <MaterialCommunityIcons
               name='swim'
               color={white}
@@ -62,7 +68,7 @@ export function getMetricMetaInfo (metric) {
       type: 'slider',
       getIcon() {
         return (
-          <View style={[styles.iconContainer, {backgroundColor: lightPurp}]}>
+          <View style={[{backgroundColor: 'red'}]}>
             <FontAwesome
               name='bed'
               color={white}
@@ -80,7 +86,7 @@ export function getMetricMetaInfo (metric) {
       type: 'slider',
       getIcon() {
         return (
-          <View style={[styles.iconContainer, {backgroundColor: pink}]}>
+          <View style={[{backgroundColor: 'red'}]}>
             <MaterialCommunityIcons
               name='food'
               color={white}
