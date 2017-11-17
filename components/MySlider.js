@@ -5,7 +5,7 @@ import { View, Text, Slider } from 'react-native';
 
 export const MySlider = (props) => {
 
-  const {name, value, onChange, maximumValue, step} = props;
+  const {name, value, onChange, maximumValue, step, unit} = props;
 
   return (
     <View>
@@ -13,11 +13,12 @@ export const MySlider = (props) => {
       <Slider
         minimumValue={0}
         maximumValue={maximumValue}
-        onSlidingComplete={onChange}
+        onValueChange={onChange}
         value={value}
         step={step}
       />
       <Text>{value}</Text>
+      <Text>{unit}</Text>
     </View>
   )
 };

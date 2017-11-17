@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
-import { View, Text } from 'react-native';
+import { View, Text, TouchableOpacity } from 'react-native';
 import { getMetricMetaInfo } from '../utils/helpers';
 import { MySlider } from  './MySlider';
 import { Steppers } from  './Steppers';
+import { DateHeader } from  './DateHeader';
+import {red, blue, white, gray} from '../utils/colors';
 
 
 export default class AddEntry extends Component {
@@ -37,25 +39,39 @@ export default class AddEntry extends Component {
     })
   }
 
+  submit(){
+    this.setState({
+      run: 0,
+      bike: 0,
+      swim: 0,
+      sleep: 0,
+      eat: 0
+    })
+  }
+
 
   render(){
+    const metaInfo = getMetricMetaInfo();
 
     return (
       <View>
+
+        <DateHeader date={(new Date()).toLocaleDateString()}/>
+
         {Object.keys(this.state).map(key => {
           const value = this.state[key];
-          const metaInfo = getMetricMetaInfo(key);
 
           return (
             <View key={key}>
-              {metaInfo.getIcon()}
-              {metaInfo.type === 'slider'? (
+              {metaInfo[key].getIcon()}
+              {metaInfo[key].type === 'slider'? (
                 <MySlider
                   name={key}
-                  maximumValue = {metaInfo.max}
+                  maximumValue = {metaInfo[key].max}
                   value={value}
                   onChange={(value) => this.slide(key, value)}
-                  step={metaInfo.step}
+                  step={metaInfo[key].step}
+                  unit={metaInfo[key].unit}
                 />
               ) :(
                 <Steppers
@@ -63,11 +79,20 @@ export default class AddEntry extends Component {
                   value={value}
                   onIncrement={() => this.increment(key)}
                   onDecrement={() => this.decrement(key)}
+                  unit={metaInfo[key].unit}
                 />
               )}
             </View>
           )
         })}
+
+        <TouchableOpacity onPress={() => this.submit()}>
+          <Text style={{
+            backgroundColor: blue,
+            width: 100,
+            padding: 10
+          }}>SUBMIT</Text>
+        </TouchableOpacity>
       </View>
     )
   }
