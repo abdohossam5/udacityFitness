@@ -5,6 +5,9 @@ import { MySlider } from  './MySlider';
 import { Steppers } from  './Steppers';
 import { DateHeader } from  './DateHeader';
 import {red, blue, white, gray} from '../utils/colors';
+import TextButton from './TextButton';
+import { SimpleLineIcons } from '@expo/vector-icons';
+
 
 
 export default class AddEntry extends Component {
@@ -49,51 +52,69 @@ export default class AddEntry extends Component {
     })
   }
 
+  reset = () =>{
 
-  render(){
-    const metaInfo = getMetricMetaInfo();
+  };
 
-    return (
-      <View>
 
-        <DateHeader date={(new Date()).toLocaleDateString()}/>
+    render() {
+        const metaInfo = getMetricMetaInfo();
 
-        {Object.keys(this.state).map(key => {
-          const value = this.state[key];
 
-          return (
-            <View key={key}>
-              {metaInfo[key].getIcon()}
-              {metaInfo[key].type === 'slider'? (
-                <MySlider
-                  name={key}
-                  maximumValue = {metaInfo[key].max}
-                  value={value}
-                  onChange={(value) => this.slide(key, value)}
-                  step={metaInfo[key].step}
-                  unit={metaInfo[key].unit}
-                />
-              ) :(
-                <Steppers
-                  name={key}
-                  value={value}
-                  onIncrement={() => this.increment(key)}
-                  onDecrement={() => this.decrement(key)}
-                  unit={metaInfo[key].unit}
-                />
-              )}
-            </View>
-          )
-        })}
+        if (this.props.alreadyLogged) {
+            return (
+              <View>
+                <SimpleLineIcons name="emotsmile" color="black" size={32}/>
+                <Text>You already logged your data for today</Text>
+                <TextButton onPress={this.reset}>
+                  Reset
+                </TextButton>
+              </View>
+            )
+        }
 
-        <TouchableOpacity onPress={() => this.submit()}>
-          <Text style={{
-            backgroundColor: blue,
-            width: 100,
-            padding: 10
-          }}>SUBMIT</Text>
-        </TouchableOpacity>
-      </View>
-    )
-  }
+        return (
+          <View>
+
+            <DateHeader date={(new Date()).toLocaleDateString()}/>
+
+              {Object.keys(this.state).map(key => {
+                  const value = this.state[key];
+
+                  return (
+                    <View key={key}>
+                        {metaInfo[key].getIcon()}
+                        {metaInfo[key].type === 'slider' ? (
+                          <MySlider
+                            name={key}
+                            maximumValue={metaInfo[key].max}
+                            value={value}
+                            onChange={(value) => this.slide(key, value)}
+                            step={metaInfo[key].step}
+                            unit={metaInfo[key].unit}
+                          />
+                        ) : (
+                          <Steppers
+                            name={key}
+                            value={value}
+                            onIncrement={() => this.increment(key)}
+                            onDecrement={() => this.decrement(key)}
+                            unit={metaInfo[key].unit}
+                          />
+                        )}
+                    </View>
+                  )
+              })}
+
+            <TouchableOpacity onPress={() => this.submit()}>
+              <Text style={{
+                  backgroundColor: blue,
+                  width: 100,
+                  padding: 10
+              }}>SUBMIT</Text>
+            </TouchableOpacity>
+          </View>
+        )
+    }
+
 }
