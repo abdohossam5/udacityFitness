@@ -1,12 +1,13 @@
 import React, { Component } from 'react';
-import { View, Text, TouchableOpacity } from 'react-native';
-import { getMetricMetaInfo } from '../utils/helpers';
+import { View, ScrollView, Text, TouchableOpacity } from 'react-native';
+import { getMetricMetaInfo, timeToString } from '../utils/helpers';
 import { MySlider } from  './MySlider';
 import { Steppers } from  './Steppers';
 import { DateHeader } from  './DateHeader';
 import {red, blue, white, gray} from '../utils/colors';
 import TextButton from './TextButton';
 import { SimpleLineIcons } from '@expo/vector-icons';
+import {removeEntry, submitEntry} from "../utils/api"
 
 
 
@@ -43,17 +44,14 @@ export default class AddEntry extends Component {
   }
 
   submit(){
-    this.setState({
-      run: 0,
-      bike: 0,
-      swim: 0,
-      sleep: 0,
-      eat: 0
-    })
+    const key = timeToString();
+    const entry = this.state;
+    submitEntry({key, entry})
   }
 
   reset = () =>{
-
+      const key = timeToString();
+      removeEntry(key)
   };
 
 
@@ -74,7 +72,7 @@ export default class AddEntry extends Component {
         }
 
         return (
-          <View>
+          <ScrollView>
 
             <DateHeader date={(new Date()).toLocaleDateString()}/>
 
@@ -113,7 +111,7 @@ export default class AddEntry extends Component {
                   padding: 10
               }}>SUBMIT</Text>
             </TouchableOpacity>
-          </View>
+          </ScrollView>
         )
     }
 
