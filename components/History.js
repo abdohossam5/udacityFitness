@@ -5,8 +5,15 @@ import {connect} from 'react-redux';
 import {fetchCalendar} from '../utils/api';
 import {receiveEntries} from '../actions';
 import UdaciFitnessCalendar from 'udacifitness-calendar';
+import {white} from "../utils/colors";
+import {DateHeader} from './DateHeader';
+import MetricCard from './MetricCard';
+import {AppLoading} from 'expo'
 
 class History extends Component {
+    state = {
+        ready: false
+    }
 
     componentDidMount(){
         fetchCalendar().then(entries => {
@@ -14,21 +21,32 @@ class History extends Component {
                 entries[timeToString()] = getDailyReminderValue()
             }
             this.props.dispatch(receiveEntries(entries))
-        })
+        }).then(() => this.setState({ready:true}))
     }
 
     renderItem = ({today, ...metrics}, formattedDate, key) => (
-      <View>
+      <View style={styles.item}>
           {today
-            ? <Text> { JSON.stringify(today) } </Text>
-            : <Text> { JSON.stringify(metrics) } </Text>}
+            ? (
+              <View>
+                  <DateHeader date={formattedDate}/>
+                  <Text style={styles.noDataTxt}>
+                      {today}
+                  </Text>
+              </View>
+            )
+            :(
+              <MetricCard date={formattedDate} metrics={metrics}/>
+            )
+          }
       </View>
     );
 
     renderEmptyDate(formattedDate){
         return (
-          <View>
-              <Text> No DATA </Text>
+          <View style={styles.item}>
+              <DateHeader date={formattedDate}/>
+              <Text style={styles.noDataTxt}>You haven't logged any data for that day </Text>
           </View>
         )
     }
@@ -36,6 +54,12 @@ class History extends Component {
 
     render(){
         const {entries} = this.props;
+        const {ready} = this.state;
+        if(!ready){
+            return (
+              <AppLoading/>
+            )
+        }
         return (
          <UdaciFitnessCalendar
            items={entries}
@@ -45,6 +69,32 @@ class History extends Component {
         )
     }
 }
+
+
+const styles = StyleSheet.create({
+    item: {
+        padding: 20,
+        justifyContent: 'center',
+        backgroundColor: white,
+        borderRadius: 16,
+        marginLeft: 10,
+        marginRight: 10,
+        marginTop: 17,
+        shadowColor: 'rgba(0,0,0,0.24)',
+        shadowRadius: 5,
+        shadowOpacity: 0.8,
+        shadowOffset:{
+            width: 0,
+            height:3
+        }
+    },
+    noDataTxt: {
+        fontSize: 20,
+        paddingTop: 20,
+        paddingBottom: 20
+    }
+});
+
 const mapStateToProps = (entries) => ({
     entries
 });
