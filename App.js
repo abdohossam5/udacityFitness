@@ -12,10 +12,14 @@ export default class App extends React.Component {
     render() {
         return (
           <Provider store={store}>
-              <View>
+              <View style={styles.mainContainer}>
                   <AddEntry/>
               </View>
           </Provider>
         );
     }
 }
+
+const styles = StyleSheet.create({
+    mainContainer:{flex:1}
+});

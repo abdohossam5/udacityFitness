@@ -11,6 +11,8 @@ export default entries = (state = {}, action) => {
             return {
               ...state,
               ...action.entry
-            }
+            };
+        default:
+            return state;
     }
 };

@@ -1,8 +1,19 @@
 import React from 'react';
-import { View } from 'react-native';
+import { View, StyleSheet } from 'react-native';
 import { MaterialIcons, MaterialCommunityIcons, FontAwesome } from '@expo/vector-icons';
-import {red, orange, blue,lightPurp, pink, purple, white} from './colors';
+import {red, orange, blue,lightPurple, pink, purple, white} from './colors';
 
+const styles = StyleSheet.create({
+    iconContainer: {
+        width: 50,
+        height: 50,
+        alignItems: 'center',
+        justifyContent: 'center',
+        marginRight: 20,
+        borderRadius: 8,
+        padding: 5
+    }
+});
 
 export function getMetricMetaInfo (metric) {
   const info = {
@@ -14,7 +25,7 @@ export function getMetricMetaInfo (metric) {
       type: 'steppers',
       getIcon() {
         return (
-          <View style={[{backgroundColor: 'red'}]}>
+          <View style={[styles.iconContainer,{backgroundColor: red}]}>
             <MaterialIcons
               name='directions-run'
               color={white}
@@ -32,7 +43,7 @@ export function getMetricMetaInfo (metric) {
       type: 'steppers',
       getIcon() {
         return (
-          <View style={[ {backgroundColor: 'red'}]}>
+          <View style={[styles.iconContainer, {backgroundColor: orange}]}>
             <MaterialCommunityIcons
               name='bike'
               color={white}
@@ -50,7 +61,7 @@ export function getMetricMetaInfo (metric) {
       type: 'steppers',
       getIcon() {
         return (
-          <View style={[{backgroundColor: 'red'}]}>
+          <View style={[styles.iconContainer,{backgroundColor: blue}]}>
             <MaterialCommunityIcons
               name='swim'
               color={white}
@@ -68,7 +79,7 @@ export function getMetricMetaInfo (metric) {
       type: 'slider',
       getIcon() {
         return (
-          <View style={[{backgroundColor: 'red'}]}>
+          <View style={[styles.iconContainer,{backgroundColor: lightPurple}]}>
             <FontAwesome
               name='bed'
               color={white}
@@ -86,7 +97,7 @@ export function getMetricMetaInfo (metric) {
       type: 'slider',
       getIcon() {
         return (
-          <View style={[{backgroundColor: 'red'}]}>
+          <View style={[styles.iconContainer,{backgroundColor: pink}]}>
             <MaterialCommunityIcons
               name='food'
               color={white}
@@ -144,3 +155,7 @@ export function timeToString (time = Date.now()) {
   const todayUTC = new Date(Date.UTC(date.getFullYear(), date.getMonth(), date.getDate()))
   return todayUTC.toISOString().split('T')[0]
 }
+
+export const getDailyReminderValue = () => ({
+    today: "Don't forget to log your data for today"
+})
