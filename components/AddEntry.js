@@ -69,7 +69,7 @@ class AddEntry extends Component {
               <View style={styles.center}>
                   <SimpleLineIcons name="emotsmile" color="black" size={100}/>
                   <Text style={{padding: 10}}>You already logged your data for today</Text>
-                  <TextButton onPress={this.reset}>
+                  <TextButton onPress={this.reset} style="reset">
                       Reset
                   </TextButton>
               </View>
@@ -132,7 +132,8 @@ const styles = StyleSheet.create({
     row: {
         flexDirection: 'row',
         flex: 1,
-        alignItems: 'center'
+        alignItems: 'center',
+        marginBottom: 20
     },
     iosSubmitBtn:{
         backgroundColor: purple,

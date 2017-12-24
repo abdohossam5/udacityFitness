@@ -79,11 +79,11 @@ export function getMetricMetaInfo (metric) {
       type: 'slider',
       getIcon() {
         return (
-          <View style={[styles.iconContainer,{backgroundColor: lightPurple}]}>
+          <View style={[styles.iconContainer,{backgroundColor: purple}]}>
             <FontAwesome
               name='bed'
               color={white}
-              size={30}
+              size={35}
             />
           </View>
         )
@@ -157,5 +157,5 @@ export function timeToString (time = Date.now()) {
 }
 
 export const getDailyReminderValue = () => ({
-    today: "Don't forget to log your data for today"
+    today: "👋 Don't forget to log your data for today"
 })
