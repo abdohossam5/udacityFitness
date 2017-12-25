@@ -9,7 +9,8 @@ import { createStore } from 'redux';
 import { Provider } from 'react-redux';
 import reducer from './reducers'
 import { StackNavigator, TabNavigator } from 'react-navigation';
-import {red, orange, blue,lightPurple, pink, purple, white} from './utils/colors';
+import { purple, white} from './utils/colors';
+import {setLocalNotification} from './utils/helpers';
 import {Constants} from 'expo';
 
 const store = createStore(reducer);
@@ -78,6 +79,11 @@ const MainNavigator = StackNavigator({
 });
 
 export default class App extends React.Component {
+
+    componentDidMount(){
+        setLocalNotification()
+    }
+
     render() {
         return (
           <Provider store={store}>
