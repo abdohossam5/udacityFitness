@@ -16,5 +16,10 @@ const styles = StyleSheet.create({
    reset:{
        textAlign: 'center',
        color: purple
-   }
+   },
+    resetBtn: {
+        flexDirection: 'row',
+        alignSelf: 'center',
+        margin:20
+    }
 });

@@ -4,12 +4,13 @@ import {getMetricMetaInfo, timeToString, getDailyReminderValue} from '../utils/h
 import {MySlider} from './MySlider';
 import {Steppers} from './Steppers';
 import {DateHeader} from './DateHeader';
-import {red, blue, white, gray, purple} from '../utils/colors';
+import { white, purple} from '../utils/colors';
 import TextButton from './TextButton';
 import {SimpleLineIcons} from '@expo/vector-icons';
 import {removeEntry, submitEntry} from "../utils/api"
 import {connect} from 'react-redux';
 import {addEntry} from "../actions/index";
+import {NavigationActions} from 'react-navigation';
 
 
 class AddEntry extends Component {
@@ -48,7 +49,8 @@ class AddEntry extends Component {
         const key = timeToString();
         const entry = this.state;
         submitEntry({key, entry});
-        this.props.addEntry({[key]: entry})
+        this.props.addEntry({[key]: entry});
+        this.toHome();
     }
 
     reset = () => {
@@ -56,9 +58,15 @@ class AddEntry extends Component {
         removeEntry(key);
         this.props.addEntry({
             [key]: getDailyReminderValue()
-        })
+        });
+        this.toHome();
     };
 
+    toHome(){
+        this.props.navigation.dispatch(NavigationActions.back({
+            key: 'AddEntry'
+        }))
+    }
 
     render() {
         const metaInfo = getMetricMetaInfo();
