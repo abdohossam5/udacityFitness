@@ -4,6 +4,7 @@ import {Ionicons, FontAwesome} from '@expo/vector-icons';
 import AddEntry from './components/AddEntry';
 import History from './components/History';
 import EntryDetail from './components/EntryDetail';
+import Live from './components/Live';
 import { createStore } from 'redux';
 import { Provider } from 'react-redux';
 import reducer from './reducers'
@@ -32,6 +33,13 @@ const Tabs = TabNavigator({
         navigationOptions: {
             tabBarLabel: 'Add Entry',
             tabBarIcon: ({tintColor}) => <Ionicons name="ios-add" color={tintColor} size={30} />
+        }
+    },
+    Live: {
+        screen: Live,
+        navigationOptions: {
+            tabBarLabel: 'Live',
+            tabBarIcon: ({tintColor}) => <Ionicons name="ios-speedometer" color={tintColor} size={30} />
         }
     }
 }, {
