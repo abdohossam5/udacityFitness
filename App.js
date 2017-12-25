@@ -3,10 +3,11 @@ import {StyleSheet, Text, View, StatusBar} from 'react-native';
 import {Ionicons, FontAwesome} from '@expo/vector-icons';
 import AddEntry from './components/AddEntry';
 import History from './components/History';
+import EntryDetail from './components/EntryDetail';
 import { createStore } from 'redux';
 import { Provider } from 'react-redux';
 import reducer from './reducers'
-import {TabNavigator} from 'react-navigation';
+import { StackNavigator, TabNavigator } from 'react-navigation';
 import {red, orange, blue,lightPurple, pink, purple, white} from './utils/colors';
 import {Constants} from 'expo';
 
@@ -52,13 +53,29 @@ const Tabs = TabNavigator({
     }
 });
 
+const MainNavigator = StackNavigator({
+   Home: {
+       screen: Tabs
+   },
+    EntryDetail: {
+       screen: EntryDetail,
+        navigationOptions: ({navigation}) => ({
+            title: `${navigation.state.params.entryId}`,
+            headerTintColor: white,
+            headerStyle: {
+                backgroundColor: purple
+            }
+        }),
+    }
+});
+
 export default class App extends React.Component {
     render() {
         return (
           <Provider store={store}>
               <View style={styles.mainContainer}>
                   <MyStatusBar backgroundColor={purple} barStyle="light-content"/>
-                  <Tabs/>
+                  <MainNavigator/>
               </View>
           </Provider>
         );
